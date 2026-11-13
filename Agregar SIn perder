@@ -1,0 +1,42 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+struct Alumno {
+    string nombre;
+    string matricula;
+    float  calif[3];
+};
+
+
+void aniadir(){
+    ofstream archivo;
+    Alumno New;
+   
+    archivo.open("struct.txt",ios::app);
+    if (archivo.fail())
+    {
+        cout<<" el archivo no se abrio";
+        exit(1);
+    }
+    cout<<"Digite el nombre del alumno que quiera añadir ";
+    getline(cin,New.nombre);
+    cout<<"Digite la matricula  del alumno nuevo ";
+    getline(cin,New.matricula);
+    float acomulador=0;
+    for (int i = 0; i < 3; i++){
+        cout<<"escriba la calificación "<<i+1 <<" : ";
+        cin>>New.calif[i];
+        acomulador+=New.calif[i];
+    }
+    float promedioNew= acomulador/3;
+
+    
+
+    archivo<<New.nombre<<" " << New.matricula<<" "<< New.calif[0]<< " "<<New.calif[1]<< " "<<New.calif[2]<<" "<<promedioNew<<endl;
+    archivo.close();
+}
+int main(){
+    aniadir();
+    return 0;
+}
