@@ -1,0 +1,16 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+int main(){
+    ifstream archivoc("archivoInexistente.txt");
+    if(archivoc.fail()){
+        cout<<" no se puedo abrir el archivo, verifica si el archivo exite";
+        return 1;
+
+    }
+    cout<< "el arhcivo se pudo abrir"<< endl;
+    archivoc.close();
+    return 0;
+}
