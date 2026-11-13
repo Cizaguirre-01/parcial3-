@@ -1,0 +1,46 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+struct Alumno {
+    string nombre;
+    string matricula;
+    float  calif[3];
+    float promedioalum;
+    
+};
+
+
+
+void leer(Alumno alumnos[], int &todo){
+    ifstream archivo;
+    string texto;
+    archivo.open("struct.txt",ios::in);
+
+    if(archivo.fail())
+    {
+        cout<<"no se pudo abrir el archivo o leer";
+        exit(1);
+    }
+    
+    while (archivo>> alumnos[todo].nombre )
+    {
+        archivo>>alumnos[todo].matricula>>alumnos[todo].calif[0]>>alumnos[todo].calif[1]>>alumnos[todo].calif[2]>>alumnos[todo].promedioalum;
+        todo++;
+    }
+    archivo.close();
+    
+
+}
+
+int main(){
+    Alumno alumnos[5];
+    int todo=0;
+    leer( alumnos, todo );
+    for (int i = 0; i < todo; i++)
+    {
+        cout<< alumnos[i].nombre<<" "<<alumnos[i].matricula<< " "<<alumnos[i].calif[0]<<" "<<alumnos[i].calif[1]<<" "<<alumnos[i].calif[2]<<" " <<alumnos[i].promedioalum<<'\n';
+    }
+
+} 
