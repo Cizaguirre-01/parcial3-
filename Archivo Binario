@@ -1,0 +1,74 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+struct Alumno {
+    char nombre[40];
+    char matricula[40];
+    float  calif[3];
+    float promedio;
+};
+
+void escribirBinario(Alumno alumnos [],int n ){ 
+    ofstream archivo("hola.bin",std::ios::binary);
+    if(archivo.fail()){
+        cout<<"el archivo no se abre";
+        exit(1);
+
+    }
+    archivo.write(reinterpret_cast<const char*>(alumnos),sizeof(Alumno)*n);
+    archivo.close();
+    
+    
+}
+
+int main(){
+    int n=5;
+    Alumno alumnos[n];
+
+    for(int i=0;i<n;i++){
+        cout<< "Ingrese el nombre del alumno: "<<i+1<<": ";
+        cin.getline( alumnos[i].nombre, 40);
+        cout<< "Ingrese la matricula del alumno: "<<i+1<<": ";
+        cin.getline(alumnos[i].matricula, 40);
+        
+
+        for(int j=0;j<3;j++){
+            cout<< "Ingrese la calificacion "<<j+1<<" del alumno: ";
+            cin>>alumnos[i].calif[j];
+           
+        }
+        cin.ignore();
+        cout<<'\n';
+    }
+   
+ 
+    for(int i=0;i<n;i++){
+        float promedio=0;
+        float totalPromedio=0;
+        for(int j=0;j<3;j++){
+            promedio+=alumnos[i].calif[j];
+            totalPromedio=promedio/3;
+            alumnos[i].promedio=totalPromedio;
+
+        }
+        cout<< "El promedio general del alumno "<<alumnos[i].nombre<<" es: "<<totalPromedio<<'\n'<<endl; 
+        
+    }
+    escribirBinario(alumnos, n); 
+    ifstream bin("hola.bin",ios::binary | ios::ate );
+    ifstream txt("struct.txt", ios::ate);
+
+    if (!bin.fail()&& !txt.fail())
+    {
+        cout<<" el tamaño del archivo binario (hola.bin) es :" << bin.tellg()<< " bytes\n";
+        cout<<" el tamaño del archivo texto (struct.txt) es :" << txt.tellg()<< " bytes\n";
+    }
+    bin.close();
+    txt.close();
+
+    return 0;
+
+}
+
