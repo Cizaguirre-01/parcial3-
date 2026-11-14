@@ -68,14 +68,14 @@ int main(){
  
     for(int i=0;i<n;i++){
         float promedio=0;
-        float totalPromedio=0;
+        
         for(int j=0;j<3;j++){
             promedio+=alumnos[i].calif[j];
-            totalPromedio=promedio/3;
+            
 
         }
         alumnos[i].promedio= promedio/3;
-        cout<< "El promedio general del alumno "<<alumnos[i].nombre<<" es: "<<totalPromedio<<'\n'<<endl; 
+        cout<< "El promedio general del alumno "<<alumnos[i].nombre<<" es: "<<alumnos[i].promedio<<endl; 
         
     }
     float PromedioMayor= alumnos[0].promedio;
@@ -107,3 +107,5 @@ int main(){
     return 0;
 
 }
+
+
