@@ -1,0 +1,109 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+struct Alumno {
+    string nombre;
+    string matricula;
+    float promedio;
+    float  calif[3];
+};
+
+void escribir(Alumno alumnos [],int n ){ 
+    ofstream archivoc("struct.txt");
+    if(archivoc.fail()){
+        cout<<" no se puedo abrir el archivo";
+        exit(1);
+
+    }
+    for (int i = 0; i < n; i++)
+    {
+        archivoc<<" "<<alumnos[i].nombre<< " "<<alumnos[i].matricula;
+        float promedio=0;
+        for (int j=0; j<3; j++){
+            archivoc<< " "<<alumnos[i].calif[j];
+            promedio+= alumnos[i].calif[j];
+        }
+        archivoc<<" "<<(promedio/3)<< '\n';
+        
+        
+
+
+     
+    }
+    archivoc<<"reporte"<<endl;
+    for (int i = 0; i < n; i++)
+    {
+        archivoc<< " "<<alumnos[i].nombre<< "   promedio "<< alumnos[i].promedio<<endl;
+    }
+    
+    
+    archivoc.close();
+
+}
+
+int main(){
+    int n=5;
+    Alumno alumnos[n];
+    
+    
+
+    for(int i=0;i<n;i++){
+        cout<< "Ingrese el nombre del alumno: "<<i+1<<": ";
+        getline(cin, alumnos[i].nombre);
+        cout<< "Ingrese la matricula del alumno: "<<i+1<<": ";
+        getline(cin, alumnos[i].matricula);
+        
+
+        for(int j=0;j<3;j++){
+            cout<< "Ingrese la calificacion "<<j+1<<" del alumno: ";
+            cin>>alumnos[i].calif[j];
+           
+        }
+        cin.ignore();
+        cout<<'\n';
+    }
+   
+ 
+    for(int i=0;i<n;i++){
+        float promedio=0;
+        float totalPromedio=0;
+        for(int j=0;j<3;j++){
+            promedio+=alumnos[i].calif[j];
+            totalPromedio=promedio/3;
+
+        }
+        alumnos[i].promedio= promedio/3;
+        cout<< "El promedio general del alumno "<<alumnos[i].nombre<<" es: "<<totalPromedio<<'\n'<<endl; 
+        
+    }
+    float PromedioMayor= alumnos[0].promedio;
+    string alumnoMayor=alumnos[0].nombre;
+    
+
+    for (int i = 0; i < 5-1; i++)
+    {
+        for (int j = 0; j < 5 - i -1; j++)
+        {
+            if (alumnos[j].promedio< alumnos[j+1].promedio){
+                Alumno temp = alumnos[j];
+                alumnos[j]= alumnos[j+1];
+                alumnos[j+1]=temp;
+
+            }
+        }
+        
+        
+    }
+    cout<<" el reporte generado de alumnos de mayor a menor es  "<<endl;
+    
+    for (int i = 0; i < 5; i++)
+    {
+        cout<< i+1 <<" " << alumnos[i].nombre <<" con promedio de: " <<alumnos[i].promedio<< endl;
+    }
+    
+    escribir(alumnos, n); 
+    return 0;
+
+}
